@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Export.h"
 #include "../Constants.h"
 #include "../JoybusEnums.h"
 #include "VBAVariables.h"
@@ -9,15 +10,15 @@
 
 namespace GBACom {
 	namespace VBA {
-		int GetTransferTime(char cmd);
+		LIBGBACOM_API int GetTransferTime(char cmd);
 
 		template <typename T>
-		std::unique_ptr<T> MoveFromFront(std::queue<std::unique_ptr<T>>& ptrs);
+		LIBGBACOM_API std::unique_ptr<T> MoveFromFront(std::queue<std::unique_ptr<T>>& ptrs);
 
-		std::unique_ptr<sf::TcpSocket> GetNextSocket();
-		std::unique_ptr<sf::TcpSocket> GetNextClock();
+		LIBGBACOM_API std::unique_ptr<sf::TcpSocket> GetNextSocket();
+		LIBGBACOM_API std::unique_ptr<sf::TcpSocket> GetNextClock();
 
-		void VBAConnectionWaiter();
-		void VBAConnectionWaiter_Shutdown();
+		LIBGBACOM_API void VBAConnectionWaiter();
+		LIBGBACOM_API void VBAConnectionWaiter_Shutdown();
 	}
 }

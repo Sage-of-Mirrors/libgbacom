@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Export.h"
+
 namespace GBACom {
 #define REG_PSF1 0x20
 #define REG_PSF0 0x10

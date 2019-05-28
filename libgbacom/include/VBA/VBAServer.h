@@ -2,6 +2,8 @@
 
 #define NOMINMAX
 
+#include "../Export.h"
+
 #include "../Constants.h"
 #include "../JoybusEnums.h"
 #include "../Util.h"
@@ -15,7 +17,7 @@
 namespace GBACom
 {
 	namespace VBA {
-		class VBAServer {
+		class LIBGBACOM_API VBAServer {
 		public:
 			VBAServer();
 			~VBAServer();

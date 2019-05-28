@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Export.h"
+
 namespace GBACom {
 	enum JoybusCommand {
 		RESET = 0xFF,

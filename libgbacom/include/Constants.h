@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Export.h"
+
 namespace GBACom {
 	constexpr auto BITS_PER_SECOND = 115200;
 	constexpr auto BYTES_PER_SECOND = BITS_PER_SECOND / 8;

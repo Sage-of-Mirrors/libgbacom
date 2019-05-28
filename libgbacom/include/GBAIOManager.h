@@ -1,15 +1,17 @@
 #pragma once
 
+#include "../Export.h"
+
 #include <stdint.h>
 
 namespace GBACom {
-	class GBAIOManager {
+	class LIBGBACOM_API GBAIOManager {
 	public:
-		 virtual int Read(char& status);
-		 virtual int Write(char* buffer, char& status);
-		 virtual int Reset(char& status);
-		 virtual int GetStatus(char& status);
-		 virtual int JoyBoot(char* program, int length, char& status);
+		 virtual int Read(char* buffer, char& status) = 0;
+		 virtual int Write(char* buffer, char& status) = 0;
+		 virtual int Reset(char& status) = 0;
+		 virtual int GetStatus(char& status) = 0;
+		 virtual int JoyBoot(char* program, int length, int game_code, char& status) = 0;
 		 //virtual int GetProcessStatus(); // Currently can't do this one, don't know what to send to the GBA
 	};
 }

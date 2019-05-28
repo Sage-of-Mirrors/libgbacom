@@ -1,4 +1,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
+
+#include "include/Export.h"
+
 #include <windows.h>
 
 BOOL APIENTRY DllMain( HMODULE hModule,

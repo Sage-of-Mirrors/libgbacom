@@ -2,23 +2,25 @@
 
 #define NOMINMAX
 
+#include "../Export.h"
 #include "../GBAIOManager.h"
 #include "../JoybusDefines.h"
 #include "VBADevice.h"
 #include "Util.h"
 
 #include <SFML/Network.hpp>
+#include <intrin.h>
 
 namespace GBACom {
 	namespace VBA {
-		class VBAIOManager : GBACom::GBAIOManager {
+		class LIBGBACOM_API VBAIOManager : GBAIOManager {
 			VBADevice m_Device;
 		public:
-			int Read(char* buffer, char& status);
-			int Write(char* buffer, char& status);
-			int Reset(char& status);
-			int GetStatus(char& status);
-			int JoyBoot(char* program, int length, int game_code, char& status);
+			virtual int Read(char* buffer, char& status) override;
+			virtual int Write(char* buffer, char& status) override;
+			virtual int Reset(char& status) override;
+			virtual int GetStatus(char& status) override;
+			virtual int JoyBoot(char* program, int length, int game_code, char& status) override;
 		};
 	} // VBA
 } // GBACom

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Export.h"
 #include "../Constants.h"
 #include "VBAServer.h"
 #include "VBAFunctions.h"
@@ -9,7 +10,7 @@
 
 namespace GBACom {
 	namespace VBA {
-		class VBADevice {
+		class LIBGBACOM_API VBADevice {
 			VBAServer m_Server;
 
 			JoybusNextAction m_NextAction = JoybusNextAction::SEND;

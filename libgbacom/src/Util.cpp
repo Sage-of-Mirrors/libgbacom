@@ -24,15 +24,11 @@ namespace GBACom {
 			return integer;
 		}
 
-		char* Uint32_TToBytes(uint32_t integer) {
-			char bytes[4] = { 0, 0, 0, 0 };
-
+		void Uint32_TToBytes(uint32_t integer, char* bytes) {
 			bytes[0] = (integer & 0xFF000000) >> 24;
 			bytes[1] = (integer & 0x00FF0000) >> 16;
 			bytes[2] = (integer & 0x0000FF00) >> 8;
 			bytes[3] = (integer & 0x000000FF);
-
-			return bytes;
 		}
 
 		uint32_t CalculateGCKey(uint32_t size) {
@@ -84,7 +80,7 @@ namespace GBACom {
 			return crc;
 		}
 
-		char* Encrypt(char* data, uint32_t i, uint32_t & session_key, uint32_t & fcrc) {
+		void Encrypt(char* data, char* enc_bytes, uint32_t i, uint32_t & session_key, uint32_t & fcrc) {
 			uint32_t plaintext = ((int)(((unsigned char)data[0]) << 24) | (int)(((unsigned char)data[1]) << 16) | (int)(((unsigned char)data[2]) << 8) | (int)(((unsigned char)data[3])));
 			plaintext = _byteswap_ulong(plaintext);
 
@@ -95,8 +91,12 @@ namespace GBACom {
 			encrypted ^= ((~(i + (0x20 << 20))) + 1);
 			encrypted ^= 0x20796220;
 
-			char enc_bytes[4] = { (encrypted & 0xFF000000) >> 24, (encrypted & 0x00FF0000) >> 16, (encrypted & 0x0000FF00) >> 8, encrypted & 0x000000FF };
-			return enc_bytes;
+			encrypted = _byteswap_ulong(encrypted);
+			
+			enc_bytes[0] = (encrypted & 0xFF000000) >> 24;
+			enc_bytes[1] = (encrypted & 0x00FF0000) >> 16;
+			enc_bytes[2] = (encrypted & 0x0000FF00) >> 8;
+			enc_bytes[3] = (encrypted & 0x000000FF);
 		}
 	}
 }

@@ -38,14 +38,14 @@ namespace GBACom {
 
 			int received_bytes = m_Device.RunBuffer(status_cmd, 5);
 
-			status = status_cmd[0];
+			status = status_cmd[2];
 			return received_bytes;
 		}
 
 		int VBAIOManager::JoyBoot(char* program, int length, int game_code, char& status) {
 			char read_buffer[4] = { 0, 0, 0, 0 };
 
-			// Wait until the GBA is ready to JoyBoot
+			// Wait until the GBA is ready to JoyBoot - when PSF0 is set in the JoyBus register
 			while (!(status & REG_PSF0)) {
 				Reset(status);
 				GetStatus(status);
@@ -61,7 +61,10 @@ namespace GBACom {
 
 			// Calculate and send our key to the GBA
 			uint32_t gc_key = Util::CalculateGCKey(length);
-			Write(Util::Uint32_TToBytes(gc_key), status);
+
+			char gc_key_bytes[4];
+			Util::Uint32_TToBytes(gc_key, gc_key_bytes);
+			Write(gc_key_bytes, status);
 
 			// Send the ROM header to the GBA
 			for (int i = 0; i < 0xC0; i += 4) {
@@ -73,7 +76,9 @@ namespace GBACom {
 
 			// Send the rest of the ROM to the GBA, encrypted
 			for (i = 0xC0; i < length; i += 4) {
-				char* encrypted_bytes = Util::Encrypt(program + i, i, session_key, fcrc);
+				char encrypted_bytes[4];
+				Util::Encrypt(program + i, encrypted_bytes, i, session_key, fcrc);
+
 				Write(encrypted_bytes, status);
 			}
 
@@ -85,22 +90,27 @@ namespace GBACom {
 			fcrc ^= 0x20796220;
 			fcrc = _byteswap_ulong(fcrc);
 
-			// Send final CRC to the GBNA
-			Write(Util::Uint32_TToBytes(fcrc), status);
+			// Send final CRC to the GBA
+			char final_crc[4];
+			Util::Uint32_TToBytes(fcrc, final_crc);
+			Write(final_crc, status);
 
 			// Grab the GBA's response to the final CRC. Not useful?
 			Read(read_buffer, status);
 
 			status = 0;
 
-			// Wait for the GBA to be ready to start handshake
+			// Wait for the GBA to be ready to start handshake - when it's ready to send the game code
 			while (!(status & REG_SEND)) {
 				GetStatus(status);
 			}
 
 			// Read in the GBA's game code and send our game code to the GBA
 			Read(read_buffer, status);
-			Write(Util::Uint32_TToBytes(game_code), status);
+
+			char game_code_bytes[4];
+			Util::Uint32_TToBytes(game_code, game_code_bytes);
+			Write(game_code_bytes, status);
 
 			// If the game code we received wasn't ours, return an error. The GBA will do the same on its side.
 			if (Util::BytesToUint32_T(read_buffer) != game_code) {
