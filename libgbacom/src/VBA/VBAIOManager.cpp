@@ -11,7 +11,7 @@ namespace GBACom {
 				buffer[i] = read_cmd[i];
 			}
 
-			//status = read_cmd[2];
+			status = read_cmd[2];
 			return received_bytes;
 		}
 
