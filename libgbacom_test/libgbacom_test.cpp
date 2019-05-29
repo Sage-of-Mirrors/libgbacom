@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <JoybusDefines.h>
 #include <VBA/VBAIOManager.h>
 
 void TestJoyboot() {
@@ -17,7 +18,20 @@ void TestJoyboot() {
 	char* file_data = new char[0x40000];
 	infile.read(file_data, length);
 
-	test_manager.JoyBoot(file_data, length, 0x47534245, status);
+	int return_code = test_manager.JoyBoot(file_data, length, 0x47534245, status);
+
+	if (return_code == NOT_READY) {
+		std::cout << "JoyBoot error!\n";
+	}
+	else if (return_code == GAME_CODE_ERROR) {
+		std::cout << "Game code exchange failed!\n";
+	}
+	else if (return_code == JOYBOOT_CONNECTION_FAILURE) {
+		std::cout << "Initial JoyBoot connection failed!\n";
+	}
+	else {
+		std::cout << "JoyBoot succuessful!\n";
+	}
 
 	delete[] file_data;
 
@@ -27,4 +41,5 @@ void TestJoyboot() {
 int main()
 {
 	TestJoyboot();
+	system("pause");
 }

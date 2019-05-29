@@ -12,7 +12,7 @@ namespace GBACom {
 					m_Server.Send(buffer);
 				}
 				else {
-					return -1;
+					return NOT_READY;
 				}
 
 				m_LastCommand = buffer[0];
@@ -31,8 +31,6 @@ namespace GBACom {
 					elapsed_time = cur_time - m_TimestampSent;
 				}
 
-				std::cout << "Transfer time: " << trans_time << ", Elapsed time: " << elapsed_time << "\n";
-
 				m_NextAction = JoybusNextAction::RECEIVE;
 			}
 			case JoybusNextAction::RECEIVE:
@@ -41,7 +39,7 @@ namespace GBACom {
 				m_NextAction = JoybusNextAction::SEND;
 
 				if (num_bytes_recieved == 0) {
-					return -1;
+					return NOT_READY;
 				}
 
 				return num_bytes_recieved;

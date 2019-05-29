@@ -2,6 +2,7 @@
 
 #include "../Export.h"
 #include "../Constants.h"
+#include "../JoybusDefines.h"
 #include "VBAServer.h"
 #include "VBAFunctions.h"
 
