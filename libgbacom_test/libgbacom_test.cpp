@@ -5,8 +5,7 @@
 #include <fstream>
 #include <VBA/VBAIOManager.h>
 
-int main()
-{
+void TestJoyboot() {
 	GBACom::VBA::VBAIOManager test_manager;
 
 	char status = 0;
@@ -23,4 +22,9 @@ int main()
 	delete[] file_data;
 
 	GBACom::VBA::VBAConnectionWaiter_Shutdown();
+}
+
+int main()
+{
+	TestJoyboot();
 }
