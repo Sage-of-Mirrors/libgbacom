@@ -79,7 +79,7 @@ namespace GBACom {
 				Reset(status);
 				GetStatus(status);
 
-				if (timeout > 200000) {
+				if (timeout > 2000000) {
 					return JOYBOOT_CONNECTION_FAILURE;
 				}
 

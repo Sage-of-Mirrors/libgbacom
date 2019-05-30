@@ -13,6 +13,7 @@ void TestJoyboot() {
 
 	std::ifstream infile("D:\\Downloads\\sonic_adventure_2_-_tiny_chao_garden_(amy)_(multiboot)\\TCG_GC.mb", std::ios::in | std::ios::binary | std::ios::ate);
 	uint32_t length = infile.tellg();
+	length += 4;
 	infile.seekg(0, std::ios::beg);
 
 	char* file_data = new char[0x40000];
