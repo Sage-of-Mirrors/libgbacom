@@ -2,7 +2,6 @@
 
 #define NOMINMAX
 
-#include "../Export.h"
 #include "../GBAIOManager.h"
 #include "../JoybusDefines.h"
 #include "VBADevice.h"
@@ -13,7 +12,7 @@
 
 namespace GBACom {
 	namespace VBA {
-		class LIBGBACOM_API VBAIOManager : GBAIOManager {
+		class VBAIOManager : GBAIOManager {
 			VBADevice m_Device;
 		public:
 			virtual int Read(char* buffer, char& status) override;

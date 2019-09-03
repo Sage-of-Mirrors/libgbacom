@@ -1,11 +1,9 @@
 #pragma once
 
-#include "../Export.h"
-
 #include <stdint.h>
 
 namespace GBACom {
-	class LIBGBACOM_API GBAIOManager {
+	class GBAIOManager {
 	public:
 		 virtual int Read(char* buffer, char& status) = 0;
 		 virtual int Write(char* buffer, char& status) = 0;

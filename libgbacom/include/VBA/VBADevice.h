@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../Export.h"
 #include "../Constants.h"
 #include "../JoybusDefines.h"
 #include "VBAServer.h"
@@ -11,14 +10,15 @@
 
 namespace GBACom {
 	namespace VBA {
-		class LIBGBACOM_API VBADevice {
+		class VBADevice {
 			VBAServer m_Server;
 
 			JoybusNextAction m_NextAction = JoybusNextAction::SEND;
 			char m_LastCommand;
 			uint64_t m_TimestampSent = 0;
 		public:
-			//GBADevice();
+			VBADevice();
+			~VBADevice();
 
 			int RunBuffer(char* buffer, int length);
 			int TransferInterval();

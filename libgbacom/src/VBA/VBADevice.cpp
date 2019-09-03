@@ -2,6 +2,14 @@
 
 namespace GBACom {
 	namespace VBA {
+		VBADevice::VBADevice() {
+
+		}
+
+		VBADevice::~VBADevice() {
+
+		}
+
 		int VBADevice::RunBuffer(char* buffer, int length) {
 			switch (m_NextAction) {
 			case JoybusNextAction::SEND:
